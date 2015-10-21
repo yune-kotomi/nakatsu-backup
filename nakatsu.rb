@@ -16,7 +16,7 @@ Dir.chdir(config['destination']) do
   yesterday = File.expand_path(yesterday)
   puts "Today: #{today}"
   puts "Yesterday: #{yesterday}"
-  rsync = "rsync -av --link-dest=\"#{yesterday}\" \"#{config['source']}\" \"#{today}\""
+  rsync = "rsync -av #{config['excludes'].map{|s| "--exclude='#{s}'" }.join(' ')} --link-dest=\"#{yesterday}\" \"#{config['source']}\" \"#{today}\""
   puts rsync
   system rsync
 end

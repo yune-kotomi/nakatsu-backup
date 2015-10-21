@@ -1,3 +1,6 @@
 ---
 source: /home/user
-destination: /media/user/061a3880-69e4-4ada-b3b4-d9584fc57c8a/backup
+destination: /media/user/91b6086b-b726-4a98-8d82-caac09c52d96/backup
+excludes:
+- .cache
+- .Xauthority
