@@ -20,7 +20,7 @@ Dir.chdir(ARGV[0]) do
     device = '/dev/md/md0-nakatsu'
     system "sudo mdadm --assemble --force #{device} #{devices.join(' ')}"
     system "sudo cryptsetup luksOpen #{device} nakatsu"
-    FileUtils.mkdir('/tmp/nakatsu-mount')
+    FileUtils.mkdir('/tmp/nakatsu-mount') unless File.exists?('/tmp/nakatsu-mount')
     system "sudo mount /dev/mapper/nakatsu /tmp/nakatsu-mount"
     system "nautilus /tmp/nakatsu-mount"
   end
