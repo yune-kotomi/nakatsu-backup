@@ -1,8 +1,0 @@
-db:
-  development:
-    adapter:  postgresql
-    database: nakatsu_development
-
-  production:
-    adapter:  postgresql
-    database: nakatsu_production

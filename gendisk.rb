@@ -38,12 +38,9 @@ def new_histories(size)
   ret
 end
 
-config = YAML.load_file( 'config/database.yml' )
-ActiveRecord::Base.establish_connection(config["db"][ENV['ENV'] || 'development'])
-ActiveRecord::Base.logger = Logger.new('db/database.log')
-Dir::glob('models/*').each {|f| require_relative(f) }
-
 config = YAML.load(open(ARGV[0]))
+ActiveRecord::Base.establish_connection(config['database'])
+Dir::glob('models/*').each {|f| require_relative(f) }
 
 disk_max = config['disk']['max'].to_i
 if Disk.where(:name => ARGV[1]).count > 0

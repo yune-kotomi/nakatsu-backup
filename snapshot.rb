@@ -6,12 +6,10 @@ require 'fileutils'
 require 'active_record'
 require 'pry'
 
-config = YAML.load_file( 'config/database.yml' )
-ActiveRecord::Base.establish_connection(config["db"][ENV['ENV'] || 'development'])
-ActiveRecord::Base.logger = Logger.new('db/database.log')
+config = YAML.load(open(ARGV[0]))
+ActiveRecord::Base.establish_connection(config["database"])
 Dir::glob('models/*').each {|f| require_relative(f) }
 
-config = YAML.load(open(ARGV[0]))
 
 Dir.chdir(config['destination']) do
   snapshot_pathes = Dir::glob('*').sort.map{|path| File.expand_path(path) }

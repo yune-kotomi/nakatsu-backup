@@ -8,3 +8,6 @@ disk:
   max: 18
   redundancy: BD
   device: /dev/sr0
+database:
+  adapter:  postgresql
+  database: nakatsu_development
