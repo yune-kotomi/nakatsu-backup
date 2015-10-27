@@ -104,10 +104,13 @@ Dir.mktmpdir do |dir|
     devices.each {|d| system "sudo losetup -d #{d}" }
 
     # ISOイメージ生成
-    system "mkisofs -L -R -o #{disk.name}.iso #{disk.name}.img.*"
+    system "mkisofs -L -R -o #{disk.name}.iso -V #{disk.name} #{disk.name}.img.*"
     # リカバリレコード追加
     system "dvdisaster -c -i #{disk.name}.iso -mRS02 -n #{config['disk']['redundancy']}"
     # ディスク書き込み
-    system "growisofs -dvd-compat -Z #{config['disk']['device']}=#{disk.name}.iso -use-the-force-luke=spare:none"
+    unless system "growisofs -dvd-compat -Z #{config['disk']['device']}=#{disk.name}.iso -use-the-force-luke=spare:none"
+      # イメージ書き込みに失敗した場合、/tmpにisoイメージを移動してから抜ける
+      FileUtils.mv("#{disk.name}.iso", Dir.tmpdir)
+    end
   end
 end
