@@ -25,7 +25,7 @@ def new_histories(size)
   ret = []
   total = 0
   100.times do |i|
-    candicates = History.includes(:snapshot).where("disk_id is null").limit(10000).offset(10000*i).map do |history|
+    candicates = History.includes(:snapshot).order('created_at').where("disk_id is null").limit(10000).offset(10000*i).map do |history|
       next if total + history.size > size
       total += history.size
       history
