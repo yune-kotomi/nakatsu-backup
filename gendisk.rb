@@ -57,6 +57,7 @@ else
   disk = Disk.new(:name => ARGV[1])
   disk.save
 end
+raise 'no files to write!' if histories.empty?
 
 Dir.mktmpdir do |dir|
   Dir.chdir(dir) do
@@ -88,11 +89,20 @@ Dir.mktmpdir do |dir|
         unless File.exists?(path)
           FileUtils.mkdir_p(path)
         end
-        FileUtils.cp(history.file_path, path)
-        history.update_attribute(:disk, disk) if history.disk.blank?
+
+        begin
+          FileUtils.cp(history.file_path, path)
+          history.update_attribute(:disk, disk) if history.disk.blank?
+        rescue Errno::ENOSPC => e
+          if history.disk.present?
+            raise "以前に書き込んだファイル #{history.file_path} が今回は書き込めません"
+          end
+          raise e
+        end
       end
-    rescue Errno::ENOSPC
+    rescue Errno::ENOSPC => e
       # もう入らないので抜ける
+      puts e.inspect
     end
     # アンマウント
     system "sudo umount mountpoint"
