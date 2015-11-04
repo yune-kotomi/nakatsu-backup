@@ -75,7 +75,7 @@ def create_disk(template, disk_max, name, destination)
       puts "copying files"
       begin
         histories.each do |history|
-          path = File.dirname(File.join('mountpoint', history.relative_path))
+          path = File.dirname(File.join(File.join('mountpoint', history.snapshot.name), history.relative_path))
           unless File.exists?(path)
             FileUtils.mkdir_p(path)
           end
