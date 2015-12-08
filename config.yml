@@ -4,6 +4,9 @@ destination: /media/user/91b6086b-b726-4a98-8d82-caac09c52d96/backup
 excludes:
 - .cache
 - .Xauthority
+- development.log
+- test.log
+- production.log
 disk:
   max: 18
   redundancy: BD
