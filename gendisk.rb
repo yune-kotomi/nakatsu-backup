@@ -103,6 +103,8 @@ Dir.mktmpdir do |dir|
     rescue Errno::ENOSPC => e
       # もう入らないので抜ける
       puts e.inspect
+    rescue => e
+      binding.pry
     end
     # アンマウント
     system "sudo umount mountpoint"
