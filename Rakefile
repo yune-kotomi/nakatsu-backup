@@ -11,7 +11,7 @@ task :migrate => :environment do
 end
 
 task :environment do
-  dbconfig = YAML.load(open('config/database.yml'))
-  ActiveRecord::Base.establish_connection(dbconfig['db'][ENV['ENV'] || 'development'])
+  dbconfig = YAML.load(open('config.yml'))
+  ActiveRecord::Base.establish_connection(dbconfig['database'])
   ActiveRecord::Base.logger = Logger.new('db/database.log')
 end

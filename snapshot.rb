@@ -61,4 +61,6 @@ Dir.chdir(config['destination']) do
       end
     end
   end
+
+  GC.start
 end
