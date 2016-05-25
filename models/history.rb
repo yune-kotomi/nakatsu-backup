@@ -29,9 +29,11 @@ class History < ActiveRecord::Base
   private
   def set_size
     self.size = File.size(file_path)
+  rescue Errno::ENOENT
   end
 
   def set_digest
     self.digest = Digest::SHA256.open(file_path).hexdigest
+  rescue Errno::ENOENT
   end
 end

@@ -25,7 +25,7 @@ def new_histories(size)
       includes(:snapshot).
       order('created_at').
       where("disk_id is null").
-      where("(select count(*) from histories h2 where h2.digest=histories.digest AND not(h2.id = histories.id)) = 0").
+      where("(select count(*) from histories h2 where h2.digest=histories.digest AND not(h2.disk_id is null)) = 0").
       limit(10000).
       offset(10000*i).map do |history|
 
