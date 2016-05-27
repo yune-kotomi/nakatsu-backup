@@ -132,4 +132,4 @@ from = ARGV[3].to_i
 to = ARGV[4].to_i
 destination = ARGV[5]
 
-(from..to).each {|i| create_disk(template, disk_max, "#{disk_name_prefix}#{i}", destination) }
+(from..to).each {|i| create_disk(template, disk_max, "#{disk_name_prefix}#{i}", destination); GC.start }
