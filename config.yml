@@ -7,7 +7,11 @@ excludes:
 - development.log
 - test.log
 - production.log
-- tmp/cache/assets
+- unicorn.log
+- tmp/cache
+- nobackup
+- Trash
+- "*.vmdk"
 disk:
   max: 18
   redundancy: BD
