@@ -19,3 +19,7 @@ disk:
 database:
   adapter:  postgresql
   database: nakatsu_development
+
+offsite:
+  base: /media/user/offsite_backup/backup
+  diff: /home/user/nobackup/offsite_diff
