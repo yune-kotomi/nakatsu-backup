@@ -22,4 +22,4 @@ database:
 
 offsite:
   base: /media/user/offsite_backup/backup
-  diff: /home/user/nobackup/offsite_diff
+  diff: /media/user/offsite_diff
